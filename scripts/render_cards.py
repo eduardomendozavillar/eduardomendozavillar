@@ -437,7 +437,7 @@ def card_repo(prof: dict, th: dict, fonts: dict, repo: dict, idx: int) -> str:
     )
     # status chip, top right
     label = repo["status"]
-    color = th["accent"] if label == "En producci&#243;n" else th["warn"]
+    color = th["accent"] if label == "En producción" else th["warn"]
     chip_w = int(6.6 * len(label)) + 24
     body.append(
         f'<g class="an-rise" style="animation-delay:{delay + 160}ms">'
