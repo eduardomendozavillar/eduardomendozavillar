@@ -1,21 +1,21 @@
 {
   "name": "Eduardo Mendoza",
   "login": "eduardomendozavillar",
-  "tagline": "Ingeniería de sistemas · IA aplicada — LLMs, agentes y RAG",
-  "about": "Construyo sistemas claros, seguros y escalables con Next.js, TypeScript y Python.",
+  "tagline": "Ingeniero de Sistemas · IA aplicada",
+  "about": "Conecto la ingeniería de sistemas con la IA aplicada —LLMs, agentes y RAG—.",
   "location": "Santa Marta, Colombia",
   "available": true,
   "portrait": "https://avatars.githubusercontent.com/u/51975538?v=4&size=220",
   "theme": {
-    "paper": "#0a0e17",
-    "paperRaised": "#121826",
-    "ink": "#e8eef7",
-    "inkMuted": "#94a3b8",
-    "line": "#1e293b",
-    "accent": "#22d3ee",
-    "accentSoft": "#083344",
-    "warn": "#fbbf24",
-    "ok": "#00c758"
+    "paper": "#f5f0e6",
+    "paperRaised": "#fffdf7",
+    "ink": "#1f2a37",
+    "inkMuted": "#6b7280",
+    "line": "#e3dccd",
+    "accent": "#0891b2",
+    "accentSoft": "#dff3f8",
+    "warn": "#b45309",
+    "ok": "#0a7d43"
   },
   "tiles": [
     {
@@ -45,7 +45,11 @@
       "status": "En producción",
       "language": "JavaScript",
       "langColor": "#f1e05a",
-      "topics": ["Next.js", "TypeScript", "Firebase"],
+      "topics": [
+        "Next.js",
+        "TypeScript",
+        "Firebase"
+      ],
       "href": "https://github.com/eduardomendozavillar/portafolio",
       "demo": "https://portafolio-psi-five-95.vercel.app"
     },
@@ -56,7 +60,11 @@
       "status": "En desarrollo",
       "language": "HTML",
       "langColor": "#e34c26",
-      "topics": ["Next.js", "Auth.js", "Prisma"],
+      "topics": [
+        "Next.js",
+        "Auth.js",
+        "Prisma"
+      ],
       "href": "https://github.com/eduardomendozavillar/hujmb-jb"
     },
     {
@@ -66,9 +74,14 @@
       "status": "En desarrollo",
       "language": "TypeScript",
       "langColor": "#3178c6",
-      "topics": ["React", "Express", "Gemini"],
+      "topics": [
+        "React",
+        "Express",
+        "Gemini"
+      ],
       "href": "https://github.com/eduardomendozavillar/taller.by",
       "demo": "https://taller-by.vercel.app"
     }
-  ]
+  ],
+  "site": "portafolio-psi-five-95.vercel.app"
 }

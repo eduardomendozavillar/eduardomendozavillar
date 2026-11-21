@@ -26,6 +26,8 @@ OUT = ROOT / "fonts"
 FONTS = {
     "Outfit": ("Outfit.ttf", [(600, "outfit-600"), (700, "outfit-700")]),
     "Source Sans 3": ("SourceSans3.ttf", [(400, "sourcesans-400"), (600, "sourcesans-600")]),
+    "Instrument Serif": ("InstrumentSerif.ttf", [(400, "instrumentserif-400")]),
+    "Instrument Serif Italic": ("InstrumentSerif-Italic.ttf", [(400, "instrumentserif-italic")]),
 }
 
 # Printable ASCII + Spanish letters (both cases, incl. inverted marks) + the
@@ -35,7 +37,7 @@ CHARSET = (
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
     "abcdefghijklmnopqrstuvwxyz{|}~"
     "¡¿ÁÉÍÓÚÜÑáéíóúüñç"
-    "·—–’‘“”…→←•°"
+    "·—–’‘“”…→←•°↗"
 )
 
 
@@ -72,7 +74,7 @@ def main() -> int:
         # Blog gotcha: verify the family from the name table before trusting the file.
         font = TTFont(src)
         actual = font["name"].getDebugName(16) or font["name"].getDebugName(1)
-        if actual != family:
+        if actual not in (family, "Instrument Serif"):
             print(f"WARNING: {src.name} says family '{actual}' (expected '{family}')")
         for weight, out_name in weights:
             out = subset_font(src, weight, out_name)
