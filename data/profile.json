@@ -1,0 +1,74 @@
+{
+  "name": "Eduardo Mendoza",
+  "login": "eduardomendozavillar",
+  "tagline": "Ingeniería de sistemas · IA aplicada — LLMs, agentes y RAG",
+  "about": "Construyo sistemas claros, seguros y escalables con Next.js, TypeScript y Python.",
+  "location": "Santa Marta, Colombia",
+  "available": true,
+  "portrait": "https://avatars.githubusercontent.com/u/51975538?v=4&size=220",
+  "theme": {
+    "paper": "#0a0e17",
+    "paperRaised": "#121826",
+    "ink": "#e8eef7",
+    "inkMuted": "#94a3b8",
+    "line": "#1e293b",
+    "accent": "#22d3ee",
+    "accentSoft": "#083344",
+    "warn": "#fbbf24",
+    "ok": "#00c758"
+  },
+  "tiles": [
+    {
+      "label": "PORTAFOLIO",
+      "caption": "Web personal",
+      "stat": "En producción",
+      "href": "https://portafolio-psi-five-95.vercel.app"
+    },
+    {
+      "label": "TALLER.BY",
+      "caption": "Productividad · música · IA",
+      "stat": "En desarrollo",
+      "href": "https://taller-by.vercel.app"
+    },
+    {
+      "label": "LINKEDIN",
+      "caption": "Escribamos",
+      "stat": "+CV en descarga",
+      "href": "https://www.linkedin.com/in/eduardo-mendoza-ing-sistemas"
+    }
+  ],
+  "repos": [
+    {
+      "name": "portafolio",
+      "title": "Portafolio personal",
+      "description": "Portafolio orientado a reclutadores: Next.js, TypeScript, Tailwind y Firebase/Firestore, desplegado en Vercel.",
+      "status": "En producción",
+      "language": "JavaScript",
+      "langColor": "#f1e05a",
+      "topics": ["Next.js", "TypeScript", "Firebase"],
+      "href": "https://github.com/eduardomendozavillar/portafolio",
+      "demo": "https://portafolio-psi-five-95.vercel.app"
+    },
+    {
+      "name": "hujmb-jb",
+      "title": "SGDI · Ventanilla Única de Radicación",
+      "description": "Gestión documental institucional (radicación, bandeja y trazabilidad) para el Hospital Universitario Julio Méndez Barreneche.",
+      "status": "En desarrollo",
+      "language": "HTML",
+      "langColor": "#e34c26",
+      "topics": ["Next.js", "Auth.js", "Prisma"],
+      "href": "https://github.com/eduardomendozavillar/hujmb-jb"
+    },
+    {
+      "name": "taller.by",
+      "title": "taller.by",
+      "description": "Productividad personal y composición musical avanzada: Express, PostgreSQL y capa de IA con Gemini.",
+      "status": "En desarrollo",
+      "language": "TypeScript",
+      "langColor": "#3178c6",
+      "topics": ["React", "Express", "Gemini"],
+      "href": "https://github.com/eduardomendozavillar/taller.by",
+      "demo": "https://taller-by.vercel.app"
+    }
+  ]
+}
