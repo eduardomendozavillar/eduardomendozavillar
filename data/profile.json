@@ -1,21 +1,21 @@
 {
-  "name": "Eduardo Mendoza",
+  "name": "Eduardo Mendoza Villar",
   "login": "eduardomendozavillar",
-  "tagline": "Ingeniero de Sistemas · IA aplicada",
-  "about": "Conecto la ingeniería de sistemas con la IA aplicada —LLMs, agentes y RAG—.",
+  "tagline": "Ingeniero de Sistemas · Especialización en IA (en curso)",
+  "about": "Conecto la ingeniería de sistemas con la inteligencia artificial aplicada —LLMs, agentes y RAG— para construir sistemas claros, seguros y escalables.",
   "location": "Santa Marta, Colombia",
   "available": true,
   "portrait": "https://avatars.githubusercontent.com/u/51975538?v=4&size=220",
   "theme": {
-    "paper": "#f5f0e6",
-    "paperRaised": "#fffdf7",
-    "ink": "#1f2a37",
-    "inkMuted": "#6b7280",
-    "line": "#e3dccd",
-    "accent": "#0891b2",
-    "accentSoft": "#dff3f8",
-    "warn": "#b45309",
-    "ok": "#0a7d43"
+    "paper": "#1c1c1c",
+    "paperRaised": "#262626",
+    "ink": "#ede6db",
+    "inkMuted": "#b9b2a8",
+    "line": "#383733",
+    "accent": "#ed6a5b",
+    "accentSoft": "#402825",
+    "warn": "#ffa000",
+    "ok": "#539e43"
   },
   "tiles": [
     {
@@ -83,5 +83,13 @@
       "demo": "https://taller-by.vercel.app"
     }
   ],
-  "site": "portafolio-psi-five-95.vercel.app"
+  "site": "portafolio-psi-five-95.vercel.app",
+  "terminal": {
+    "title": "eduardo@portfolio:~",
+    "cmd": "whoami",
+    "output": [
+      "Eduardo Mendoza Villar —",
+      "Full-Stack · IA aplicada"
+    ]
+  }
 }

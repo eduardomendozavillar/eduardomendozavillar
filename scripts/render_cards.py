@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Render the GitHub profile README cards as animated SVGs.
 
-Visual language: light paper, ink, Instrument Serif display type (roman +
-italic mix) and Source Sans 3 for body — matching the profile owner's site
-and the reference style. Data comes from data/profile.json (identity, tiles,
-featured repos, theme) and data/contributions.json (refreshed daily by
+Visual language: the profile owner's portfolio — warm-black paper (#1c1c1c),
+cream ink (#ede6db), coral-red accent (#ed6a5b), Anton display type for the
+condensed uppercase name, Manrope for body text and JetBrains Mono for the
+terminal motif. Data comes from data/profile.json (identity, tiles, featured
+repos, theme) and data/contributions.json (refreshed daily by
 .github/workflows/update.yml). One SVG per card in cards/:
 
-    header.svg                     chip, name, one-liner, portrait
+    header.svg                     role line, stacked name, terminal, portrait
     tile-1..3.svg                  linked tiles (shown at width 32.5%)
     contributions-monthly.svg      monthly bars + streak/active/busiest stats
     repo-<name>.svg                one card per featured repo
@@ -58,9 +59,9 @@ def fmt_date(iso: str) -> str:
 
 # ------------------------------------------------------------- helpers ----
 
-def wrap(text: str, width: int) -> list[str]:
+def wrap(text: str, width_px: int, font_size: float = 14.0) -> list[str]:
     """Greedy word wrap assuming ~0.55em average glyph width."""
-    limit = max(10, int(width / 0.55))
+    limit = max(10, int(width_px / (0.55 * font_size)))
     lines, cur = [], ""
     for word in text.split():
         trial = f"{cur} {word}".strip()
@@ -105,12 +106,12 @@ def countup(x: float, y: float, value: int, begin: float = 0.0, dur: float = 0.8
 # ------------------------------------------------------------- styling ----
 
 BASE_CSS = """
-text{{font-family:'Source Sans 3',ui-sans-serif,system-ui,sans-serif;fill:{ink}}}
-.hd{{font-family:'Instrument Serif',ui-serif,Georgia,serif;font-weight:400}}
-.dpi{{font-family:'Instrument Serif Italic',ui-serif,Georgia,serif;font-weight:400;font-style:italic}}
+text{{font-family:'Manrope',ui-sans-serif,system-ui,sans-serif;fill:{ink}}}
+.dsp{{font-family:'Anton','Arial Narrow',Impact,sans-serif;font-weight:400}}
+.mono{{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace}}
+.outline{{fill:none;stroke:{ink};stroke-width:1.5;paint-order:stroke}}
 .mu{{fill:{muted}}}
 .ac{{fill:{accent}}}
-.chip{{letter-spacing:2.2px;text-transform:uppercase}}
 .wide{{letter-spacing:2px;text-transform:uppercase}}
 .an-rise{{animation:rise .55s cubic-bezier(.2,.7,.3,1) both}}
 .an-riseBig{{animation:riseBig .6s cubic-bezier(.2,.7,.3,1) both}}
@@ -120,6 +121,7 @@ text{{font-family:'Source Sans 3',ui-sans-serif,system-ui,sans-serif;fill:{ink}}
 .an-slide{{animation:slide .55s cubic-bezier(.2,.7,.3,1) both}}
 .an-sweep{{animation:sweep 3s ease-in-out infinite}}
 .an-pulse{{animation:pulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
+.an-blink{{animation:blink 1.1s steps(2) infinite}}
 .an-nudge{{animation:nudge 1.6s ease-in-out infinite}}
 """
 
@@ -132,6 +134,7 @@ KEYFRAMES = """
 @keyframes slide{from{opacity:0;transform:translateX(20px)}}
 @keyframes sweep{from{transform:translateX(-160%)}to{transform:translateX(560%)}}
 @keyframes pulse{50%{opacity:.25;transform:scale(1.5)}}
+@keyframes blink{50%{opacity:0}}
 @keyframes nudge{50%{transform:translateX(4px)}}
 """
 
@@ -144,14 +147,14 @@ REDUCED_MOTION = """
 """
 
 
-def build_style(faces: list[tuple[str, str, int]], th: dict, kf: bool = True) -> str:
+def build_style(faces: list[tuple[str, str, int]], th: dict) -> str:
     css = ""
     for fam, woff, weight in faces:
         b64 = base64.b64encode(woff.read_bytes()).decode()
         css += (f"@font-face{{font-family:'{fam}';font-weight:{weight};"
                 f"src:url(data:font/woff;base64,{b64}) format('woff')}}\n")
     css += BASE_CSS.format(**th)
-    if kf and not STATIC:
+    if not STATIC:
         css += KEYFRAMES
     css += REDUCED_MOTION
     return css
@@ -171,7 +174,7 @@ def card_frame(w: int, h: int, th: dict, rx: int = 18) -> str:
 
 
 def shine_defs(th: dict) -> str:
-    """Gradient for the SMIL shine: a moving highlight over ink."""
+    """Gradient for the SMIL shine: a moving highlight over cream ink."""
     return (
         f'<linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">'
         f'<stop offset="0" stop-color="{th["ink"]}"/>'
@@ -207,72 +210,118 @@ def get_portrait(prof: dict) -> str | None:
 # ------------------------------------------------------------- cards ----
 
 def card_header(prof: dict, th: dict, fonts: dict) -> str:
-    w, h = 880, 300
-    faces = [("Instrument Serif", fonts["instrumentserif-400"], 400),
-             ("Instrument Serif Italic", fonts["instrumentserif-italic"], 400),
-             ("Source Sans 3", fonts["sourcesans-400"], 400),
-             ("Source Sans 3", fonts["sourcesans-600"], 600)]
+    w, h = 880, 380
+    faces = [("Anton", fonts["anton-400"], 400),
+             ("Manrope", fonts["manrope-400"], 400),
+             ("JetBrains Mono", fonts["jetbrains-400"], 400)]
     body = [card_frame(w, h, th)]
     if not STATIC:  # SMIL shine: plain ink text below carries the final frame
         body.append(shine_defs(th))
 
-    # portrait (optional): embedded data URI, cached in assets/
+    words = prof["name"].upper().split()
+    x = 48
+
+    # role line, mono red, letterspaced — like the portfolio hero
+    role = prof["tagline"].upper()
+    role_lines = wrap(role, 430, 10.5)
+    for j, line in enumerate(role_lines[:2]):
+        body.append(
+            f'<text class="mono ac an-rise" style="animation-delay:{j * 60}ms" '
+            f'x="{x}" y="{54 + j * 18}" font-size="10.5" letter-spacing="1.6" '
+            f'fill="{th["accent"]}">{xesc(line)}</text>'
+        )
+
+    # stacked condensed name: solid, solid (SMIL shine), outlined
+    ny = [134, 194, 254]
+    for i, word in enumerate(words[:3]):
+        outlined = i == 2
+        # CSS text{fill:...} beats presentation attributes, so the hollow
+        # line needs its own class instead of fill="none"
+        cls = "dsp an-riseBig outline" if outlined else "dsp an-riseBig"
+        body.append(
+            f'<text class="{cls}" style="animation-delay:{100 + i * 80}ms" x="{x - 3}" y="{ny[i]}" '
+            f'font-size="56">{xesc(word)}</text>'
+        )
+        if i == 1 and not STATIC:  # shine twin over the solid middle line
+            body.append(
+                f'<text class="dsp smil" x="{x - 3}" y="{ny[i]}" font-size="56" '
+                f'fill="url(#shine)">{xesc(word)}</text>'
+            )
+
+    # about, with the red emphasis from the site hero
+    about = prof["about"]
+    em = "inteligencia artificial"
+    about_lines = wrap(about, 460, 13.5)[:3]
+    for j, line in enumerate(about_lines):
+        content = line
+        if em in line and not STATIC:
+            head, _, tail = line.partition(em)
+            content = (f'{xesc(head)}<tspan fill="{th["accent"]}">{xesc(em)}</tspan>'
+                       f'{xesc(tail)}')
+            content = content.replace(xesc(head), xesc(head), 1)
+        else:
+            content = xesc(line)
+        body.append(
+            f'<text class="an-rise mu" style="animation-delay:{320 + j * 60}ms" x="{x}" '
+            f'y="{304 + j * 20}" font-size="13.5" fill="{th["muted"]}">{content}</text>'
+        )
+
+    # portrait (optional): circular, embedded data URI
     portrait = get_portrait(prof)
     if portrait:
-        ps = 170
-        px, py = w - 56 - ps, 60
+        ps = 150
+        px, py = w - 52 - ps, 44
         body.append(
-            f'<clipPath id="pc"><rect x="{px}" y="{py}" width="{ps}" height="{ps}" rx="85"/></clipPath>'
-            f'<g class="an-pop" style="animation-delay:120ms">'
+            f'<clipPath id="pc"><rect x="{px}" y="{py}" width="{ps}" height="{ps}" rx="75"/></clipPath>'
+            f'<g class="an-pop" style="animation-delay:150ms">'
             f'<image href="{portrait}" x="{px}" y="{py}" width="{ps}" height="{ps}" '
             f'preserveAspectRatio="xMidYMid slice" clip-path="url(#pc)"/>'
             f"</g>"
         )
-        text_w = px - 48 - 48
-    else:
-        text_w = w - 96
 
-    x = 48
-    parts = prof["name"].split(" ", 1)
-    first, last = parts[0], parts[1] if len(parts) > 1 else ""
-    # chip: role line with an accent dot, letterspaced uppercase
+    # terminal card, bottom right — the portfolio's whoami motif
+    term = prof.get("terminal", {})
+    tx, ty, tw_, thh = 552, 218, 280, 142
     body.append(
-        f'<g class="an-rise" style="animation-delay:0ms">'
-        f'<circle cx="{x + 6}" cy="56" r="4" fill="{th["accent"]}"/>'
-        f'<text class="chip" x="{x + 18}" y="60" font-size="12.5" font-weight="600" '
-        f'fill="{th["muted"]}">{xesc(prof["tagline"])}</text></g>'
-    )
-    # serif name, roman + italic lines; gradient twin carries the SMIL shine
-    body.append(
-        f'<text class="hd an-riseBig" style="animation-delay:80ms" x="{x - 4}" y="146" '
-        f'font-size="68" fill="{th["ink"]}">{xesc(first)}</text>'
+        f'<g class="an-slide" style="animation-delay:260ms">'
+        f'<rect x="{tx}" y="{ty}" width="{tw_}" height="{thh}" rx="10" fill="{th["paper"]}" '
+        f'stroke="{th["line"]}" stroke-width="1"/>'
+        f'<path d="M{tx} {ty + 26} h{tw_}" stroke="{th["line"]}" stroke-width="1"/>'
+        f'<circle cx="{tx + 16}" cy="{ty + 13}" r="4" fill="{th["accent"]}"/>'
+        f'<text class="mono mu" x="{tx + 30}" y="{ty + 17}" font-size="10.5" '
+        f'fill="{th["muted"]}">{xesc(term.get("title", ""))}</text>'
     )
     body.append(
-        f'<text class="dpi an-riseBig" style="animation-delay:170ms" x="{x - 4}" y="216" '
-        f'font-size="68" fill="{th["ink"]}">{xesc(last)}</text>'
+        f'<text class="mono" x="{tx + 16}" y="{ty + 48}" font-size="11.5">'
+        f'<tspan fill="{th["accent"]}">$ </tspan>'
+        f'<tspan fill="{th["ink"]}">{xesc(term.get("cmd", ""))}</tspan></text>'
     )
-    if not STATIC:
+    for j, line in enumerate(term.get("output", [])):
         body.append(
-            f'<text class="dpi smil" x="{x - 4}" y="216" font-size="68" '
-            f'fill="url(#shine)">{xesc(last)}</text>'
+            f'<text class="mono an-rise" style="animation-delay:{360 + j * 70}ms" '
+            f'x="{tx + 16}" y="{ty + 70 + j * 18}" font-size="11.5" '
+            f'fill="{th["ink"]}">{xesc(line)}</text>'
         )
-    about_line = wrap(prof["about"], text_w)[0]
+    # prompt + blinking cursor at the end (visible by default: final state)
+    cursor_y = ty + 70 + len(term.get("output", [])) * 18
     body.append(
-        f'<text class="an-rise mu" style="animation-delay:260ms" x="{x}" y="254" '
-        f'font-size="14.5" fill="{th["muted"]}">{xesc(about_line)}</text>'
+        f'<text class="mono" x="{tx + 16}" y="{cursor_y}" font-size="11.5" '
+        f'fill="{th["accent"]}">$ </text>'
     )
-    if prof.get("site"):
-        body.append(
-            f'<text class="an-rise ac" style="animation-delay:330ms" x="{x}" y="280" '
-            f'font-size="13.5" fill="{th["accent"]}">{xesc(prof["site"])} &#8599;</text>'
-        )
+    # visible by default: it blinks only when animations run
+    body.append(
+        f'<rect class="an-blink" x="{tx + 34}" y="{cursor_y - 10}" width="8" height="13" '
+        f'fill="{th["ink"]}"/>'
+    )
+    body.append("</g>")
     return svg_doc(w, h, build_style(faces, th), "\n".join(body))
 
 
 def card_tile(prof: dict, th: dict, fonts: dict, tile: dict, idx: int) -> str:
     w, h = 286, 160
-    faces = [("Source Sans 3", fonts["sourcesans-400"], 400),
-             ("Source Sans 3", fonts["sourcesans-600"], 600)]
+    faces = [("Anton", fonts["anton-400"], 400),
+             ("Manrope", fonts["manrope-400"], 400),
+             ("JetBrains Mono", fonts["jetbrains-400"], 400)]
     delay = idx * 90
     body = [
         f'<defs><clipPath id="tc{idx}"><rect x="1.5" y="1.5" width="{w - 3}" height="{h - 3}" rx="16"/></clipPath></defs>',
@@ -292,8 +341,8 @@ def card_tile(prof: dict, th: dict, fonts: dict, tile: dict, idx: int) -> str:
             f'transform="skewX(-18)"/></g>'
         )
     body.append(
-        f'<text class="chip an-tilt" style="animation-delay:{delay}ms" x="26" y="62" '
-        f'font-size="15" font-weight="600" fill="{th["ink"]}">{xesc(tile["label"])}</text>'
+        f'<text class="dsp an-tilt" style="animation-delay:{delay}ms" x="26" y="62" '
+        f'font-size="20" fill="{th["ink"]}">{xesc(tile["label"])}</text>'
     )
     body.append(
         f'<text class="an-rise mu" style="animation-delay:{delay + 140}ms" x="26" y="88" '
@@ -301,9 +350,10 @@ def card_tile(prof: dict, th: dict, fonts: dict, tile: dict, idx: int) -> str:
     )
     body.append(
         f'<g class="an-rise" style="animation-delay:{delay + 220}ms">'
-        f'<rect x="26" y="106" width="{int(6.4 * len(tile["stat"])) + 20}" height="24" rx="12" '
+        f'<rect x="26" y="106" width="{int(7.2 * len(tile["stat"])) + 20}" height="24" rx="12" '
         f'fill="{th["accentSoft"]}"/>'
-        f'<text x="36" y="122" font-size="11.5" fill="{th["accent"]}">{xesc(tile["stat"])}</text></g>'
+        f'<text class="mono" x="36" y="122" font-size="10.5" fill="{th["accent"]}">'
+        f'{xesc(tile["stat"])}</text></g>'
     )
     body.append(
         f'<text class="an-nudge" x="{w - 40}" y="{h - 22}" font-size="18" '
@@ -312,7 +362,7 @@ def card_tile(prof: dict, th: dict, fonts: dict, tile: dict, idx: int) -> str:
     return svg_doc(w, h, build_style(faces, th), "\n".join(body))
 
 
-LEVEL_COLORS = ["#e9e3d3", "#c9ecf4", "#8ed8ea", "#4cc3e0", "#0e7490"]
+LEVEL_COLORS = ["#33312d", "#4a2f2b", "#7a3f38", "#b3574c", "#ed6a5b"]
 
 
 def level_for(count: int) -> int:
@@ -329,9 +379,10 @@ def level_for(count: int) -> int:
 
 def card_monthly(prof: dict, th: dict, data: dict, fonts: dict) -> str:
     w, h = 880, 300
-    faces = [("Instrument Serif", fonts["instrumentserif-400"], 400),
-             ("Source Sans 3", fonts["sourcesans-400"], 400),
-             ("Source Sans 3", fonts["sourcesans-600"], 600)]
+    faces = [("Anton", fonts["anton-400"], 400),
+             ("Manrope", fonts["manrope-400"], 400),
+             ("Manrope", fonts["manrope-600"], 600),
+             ("JetBrains Mono", fonts["jetbrains-400"], 400)]
     base = 260  # base delay on the page
 
     days = data["days"]
@@ -343,16 +394,16 @@ def card_monthly(prof: dict, th: dict, data: dict, fonts: dict) -> str:
 
     body = [card_frame(w, h, th)]
     body.append(
-        f'<text class="hd an-rise" x="48" y="48" font-size="24" fill="{th["ink"]}">'
-        f'Contribuciones · &#250;ltimos 12 meses</text>'
+        f'<text class="dsp an-rise" x="48" y="50" font-size="23" fill="{th["ink"]}">'
+        f'CONTRIBUCIONES · &#218;LTIMOS 12 MESES</text>'
     )
     body.append(
-        f'<text class="an-rise mu" style="animation-delay:70ms" x="48" y="72" '
+        f'<text class="an-rise mu" style="animation-delay:70ms" x="48" y="74" '
         f'font-size="12.5" fill="{th["muted"]}">{data["totalContributions"]} contribuciones en el &#250;ltimo a&#241;o</text>'
     )
 
     # bars
-    gx, gy, gh = 48, 96, 96
+    gx, gy, gh = 48, 98, 92
     pitch = (w - 2 * gx) / max(len(months), 1)
     bw = min(30, pitch * 0.52)
     max_total = max((m["total"] for m in months), default=1) or 1
@@ -360,23 +411,23 @@ def card_monthly(prof: dict, th: dict, data: dict, fonts: dict) -> str:
         bh = max(3, (m["total"] / max_total) * gh)
         bx = gx + i * pitch + (pitch - bw) / 2
         is_best = best and m["ym"] == best["ym"]
-        color = th["accent"] if is_best else "#8ed8ea"
+        color = th["accent"] if is_best else "#55524d"
         d = base + 60 + i * 45
         body.append(
             f'<rect class="an-grow" style="animation-delay:{d}ms" x="{bx:g}" y="{gy + gh - bh:g}" '
-            f'width="{bw:g}" height="{bh:g}" rx="4" fill="{color}"/>'
+            f'width="{bw:g}" height="{bh:g}" rx="3" fill="{color}"/>'
         )
         lbl = MONTHS_ES[int(m["ym"][5:]) - 1]
         body.append(
-            f'<text class="an-pop mu" style="animation-delay:{d + 200}ms" '
-            f'x="{bx + bw / 2:g}" y="{gy + gh + 16}" font-size="10.5" text-anchor="middle" '
+            f'<text class="mono an-pop mu" style="animation-delay:{d + 200}ms" '
+            f'x="{bx + bw / 2:g}" y="{gy + gh + 18}" font-size="10" text-anchor="middle" '
             f'fill="{th["muted"]}">{lbl}</text>'
         )
         if is_best:
             body.append(
                 f'<g class="an-pop" style="animation-delay:{d + 380}ms">'
-                f'<text x="{bx + bw / 2:g}" y="{gy + gh - bh - 8:g}" font-size="13" text-anchor="middle" '
-                f'fill="{th["accent"]}">{m["total"]}</text></g>'
+                f'<text class="mono" x="{bx + bw / 2:g}" y="{gy + gh - bh - 8:g}" font-size="12" '
+                f'text-anchor="middle" fill="{th["accent"]}">{m["total"]}</text></g>'
             )
     body.append(f'<line x1="{gx}" y1="{gy + gh}" x2="{w - gx}" y2="{gy + gh}" '
                 f'stroke="{th["line"]}" stroke-width="1"/>')
@@ -387,20 +438,20 @@ def card_monthly(prof: dict, th: dict, data: dict, fonts: dict) -> str:
              ("D&#237;a m&#225;s activo", "peak", 48 + 2 * 258)]
     for i, (label, kind, cx) in enumerate(chips):
         d = base + 520 + i * 130
-        vx, vy = cx + 14, 272
-        attrs = f'font-size="14" font-weight="600" fill="{th["ink"]}"'
+        vx, vy = cx + 14, 274
+        attrs = f'class="mono" font-size="13" fill="{th["ink"]}"'
         if kind == "streak":
             value = countup(vx, vy, streak, begin=0.8, dur=0.7, attrs=attrs, suffix=" días")
         elif kind == "actives":
             value = countup(vx, vy, actives, begin=0.9, dur=0.7, attrs=attrs, suffix=" días")
         else:
             peak_txt = f'{fmt_date(peak["date"])} · {peak["count"]}' if peak else "—"
-            value = f'<text x="{vx}" y="{vy}" {attrs}>{peak_txt}</text>'
+            value = f'<text class="mono" x="{vx}" y="{vy}" font-size="13" fill="{th["ink"]}">{peak_txt}</text>'
         body.append(
             f'<g class="an-rise" style="animation-delay:{d}ms">'
-            f'<rect x="{cx}" y="238" width="242" height="42" rx="10" fill="{th["paper"]}" '
+            f'<rect x="{cx}" y="240" width="242" height="44" rx="10" fill="{th["paper"]}" '
             f'stroke="{th["line"]}" stroke-width="1"/>'
-            f'<text x="{cx + 14}" y="256" font-size="11" fill="{th["muted"]}">{label}</text>'
+            f'<text x="{cx + 14}" y="258" font-size="11" fill="{th["muted"]}">{label}</text>'
             f"{value}"
             f"</g>"
         )
@@ -409,9 +460,9 @@ def card_monthly(prof: dict, th: dict, data: dict, fonts: dict) -> str:
 
 def card_repo(prof: dict, th: dict, fonts: dict, repo: dict, idx: int) -> str:
     w, h = 880, 150
-    faces = [("Instrument Serif", fonts["instrumentserif-400"], 400),
-             ("Source Sans 3", fonts["sourcesans-400"], 400),
-             ("Source Sans 3", fonts["sourcesans-600"], 600)]
+    faces = [("Anton", fonts["anton-400"], 400),
+             ("Manrope", fonts["manrope-400"], 400),
+             ("JetBrains Mono", fonts["jetbrains-400"], 400)]
     delay = 420 + idx * 140
 
     body = [card_frame(w, h, th)]
@@ -421,25 +472,27 @@ def card_repo(prof: dict, th: dict, fonts: dict, repo: dict, idx: int) -> str:
     )
     x = 40
     body.append(
-        f'<text class="hd an-slide" style="animation-delay:{delay}ms" x="{x}" y="46" '
-        f'font-size="23" fill="{th["ink"]}">{xesc(repo["title"])}</text>'
+        f'<text class="dsp an-slide" style="animation-delay:{delay}ms" x="{x}" y="44" '
+        f'font-size="20" fill="{th["ink"]}">{xesc(repo["title"].upper())}</text>'
     )
-    # status chip, top right
+    # status chip, top right — mono, like the site's button chips
     label = repo["status"]
-    color = th["accent"] if label == "En producción" else th["warn"]
-    chip_w = int(6.6 * len(label)) + 24
+    is_prod = label == "En producción"
+    color = th["accent"] if is_prod else th["warn"]
+    chip_w = int(7.2 * len(label)) + 24
     body.append(
         f'<g class="an-rise" style="animation-delay:{delay + 160}ms">'
-        f'<rect x="{w - 48 - chip_w}" y="26" width="{chip_w}" height="24" rx="12" '
-        f'fill="{th["accentSoft"] if color == th["accent"] else th["paper"]}" stroke="{th["line"]}" stroke-width="1"/>'
-        f'<text x="{w - 48 - chip_w + 12}" y="42" font-size="11.5" fill="{color}">{xesc(label)}</text></g>'
+        f'<rect x="{w - 48 - chip_w}" y="24" width="{chip_w}" height="24" rx="12" '
+        f'fill="{th["accentSoft"] if is_prod else th["paper"]}" stroke="{th["line"]}" stroke-width="1"/>'
+        f'<text class="mono" x="{w - 48 - chip_w + 12}" y="40" font-size="10" '
+        f'fill="{color}">{xesc(label)}</text></g>'
     )
-    for j, line in enumerate(wrap(repo["description"], w - 2 * x - 150)[:2]):
+    for j, line in enumerate(wrap(repo["description"], w - 2 * x - 150, 13.0)[:2]):
         body.append(
             f'<text class="an-rise mu" style="animation-delay:{delay + 220 + j * 60}ms" '
-            f'x="{x}" y="{72 + j * 19}" font-size="13.5" fill="{th["muted"]}">{xesc(line)}</text>'
+            f'x="{x}" y="{72 + j * 19}" font-size="13" fill="{th["muted"]}">{xesc(line)}</text>'
         )
-    y = h - 28
+    y = h - 26
     body.append(
         f'<g class="an-rise" style="animation-delay:{delay + 340}ms">'
         f'<circle cx="{x + 5}" cy="{y - 4}" r="5" fill="{repo["langColor"]}"/>'
@@ -447,17 +500,18 @@ def card_repo(prof: dict, th: dict, fonts: dict, repo: dict, idx: int) -> str:
     )
     tx = x + 30 + 6.2 * len(repo["language"])
     for topic in repo["topics"][:4]:
-        tw = int(6.1 * len(topic)) + 18
+        tw = int(6.4 * len(topic)) + 18
         body.append(
             f'<rect x="{tx}" y="{y - 15}" width="{tw}" height="20" rx="10" fill="{th["paper"]}" '
             f'stroke="{th["line"]}" stroke-width="1"/>'
-            f'<text x="{tx + 9}" y="{y}" font-size="10.5" fill="{th["muted"]}">{xesc(topic)}</text>'
+            f'<text class="mono" x="{tx + 9}" y="{y}" font-size="9.5" fill="{th["muted"]}">'
+            f'{xesc(topic)}</text>'
         )
         tx += tw + 8
     if repo.get("demo"):
         body.append(
-            f'<text class="an-rise ac" style="animation-delay:{delay + 420}ms" '
-            f'x="{w - 48}" y="{y}" font-size="12.5" text-anchor="end" fill="{th["accent"]}">'
+            f'<text class="mono an-rise" style="animation-delay:{delay + 420}ms" '
+            f'x="{w - 48}" y="{y}" font-size="11.5" text-anchor="end" fill="{th["accent"]}">'
             f'Demo &#8594;</text>'
         )
     body.append("</g>")
@@ -466,9 +520,10 @@ def card_repo(prof: dict, th: dict, fonts: dict, repo: dict, idx: int) -> str:
 
 def card_graph(prof: dict, th: dict, data: dict, fonts: dict) -> str:
     w, h = 880, 212
-    faces = [("Instrument Serif", fonts["instrumentserif-400"], 400),
-             ("Instrument Serif Italic", fonts["instrumentserif-italic"], 400),
-             ("Source Sans 3", fonts["sourcesans-400"], 400)]
+    faces = [("Anton", fonts["anton-400"], 400),
+             ("Manrope", fonts["manrope-400"], 400),
+             ("Manrope", fonts["manrope-600"], 600),
+             ("JetBrains Mono", fonts["jetbrains-400"], 400)]
     base = 780
 
     days = data["days"]
@@ -482,18 +537,17 @@ def card_graph(prof: dict, th: dict, data: dict, fonts: dict) -> str:
 
     body = [card_frame(w, h, th)]
     total = data["totalContributions"]
-    # the headline counts up (SMIL frames); base text is the final value
     body.append(
-        f'<text class="hd an-rise" x="48" y="44" font-size="23" fill="{th["ink"]}">'
-        f'Todos los d&#237;as, <tspan class="dpi" fill="{th["accent"]}">en cian</tspan></text>'
+        f'<text class="dsp an-rise" x="48" y="46" font-size="22" fill="{th["ink"]}">'
+        f'TODOS LOS D&#205;AS, <tspan fill="{th["accent"]}">EN ROJO</tspan></text>'
     )
     body.append(
-        f'<text class="wide an-rise" style="animation-delay:60ms" x="{w - 48}" y="44" '
-        f'font-size="10.5" text-anchor="end" fill="{th["muted"]}">Se redibuja a diario</text>'
+        f'<text class="mono wide an-rise" style="animation-delay:60ms" x="{w - 48}" y="44" '
+        f'font-size="10" text-anchor="end" fill="{th["muted"]}">Se redibuja a diario</text>'
     )
     peak_line = f'pico {peak["count"]} el {fmt_date(peak["date"])}' if peak else "aún sin picos"
     body.append(
-        f'<text class="an-rise" style="animation-delay:80ms" x="48" y="66" font-size="12.5" '
+        f'<text class="an-rise" style="animation-delay:80ms" x="48" y="68" font-size="12.5" '
         f'fill="{th["muted"]}"><tspan font-weight="600" fill="{th["ink"]}">{total}</tspan> contribuciones · '
         f'{active_days(days)} días activos · {peak_line}</text>'
     )
@@ -541,7 +595,7 @@ def main() -> int:
     prof = load_json(ROOT / "data" / "profile.json")
     data = load_json(ROOT / "data" / "contributions.json")
     fonts = {p.stem: p for p in (ROOT / "fonts").glob("*.woff")}
-    required = {"instrumentserif-400", "instrumentserif-italic", "sourcesans-400", "sourcesans-600"}
+    required = {"anton-400", "manrope-400", "manrope-600", "jetbrains-400"}
     missing = required - set(fonts)
     if missing:
         print(f"missing fonts: {missing} — run scripts/build_fonts.py", file=sys.stderr)

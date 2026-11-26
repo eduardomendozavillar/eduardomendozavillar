@@ -24,10 +24,9 @@ OUT = ROOT / "fonts"
 
 # family -> (source file, [(weight, out name), ...])
 FONTS = {
-    "Outfit": ("Outfit.ttf", [(600, "outfit-600"), (700, "outfit-700")]),
-    "Source Sans 3": ("SourceSans3.ttf", [(400, "sourcesans-400"), (600, "sourcesans-600")]),
-    "Instrument Serif": ("InstrumentSerif.ttf", [(400, "instrumentserif-400")]),
-    "Instrument Serif Italic": ("InstrumentSerif-Italic.ttf", [(400, "instrumentserif-italic")]),
+    "Anton": ("Anton.ttf", [(400, "anton-400")]),
+    "Manrope": ("Manrope.ttf", [(400, "manrope-400"), (600, "manrope-600"), (700, "manrope-700")]),
+    "JetBrains Mono": ("JetBrainsMono.ttf", [(400, "jetbrains-400")]),
 }
 
 # Printable ASCII + Spanish letters (both cases, incl. inverted marks) + the
