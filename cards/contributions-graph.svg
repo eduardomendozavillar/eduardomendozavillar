@@ -42,7 +42,7 @@ text{font-family:'Manrope',ui-sans-serif,system-ui,sans-serif;fill:#ede6db}
 <rect x="1.5" y="1.5" width="877" height="209" rx="18" fill="#262626" stroke="#383733" stroke-width="1"/>
 <text class="dsp an-rise" x="48" y="46" font-size="22" fill="#ede6db">TODOS LOS D&#205;AS, <tspan fill="#ed6a5b">EN ROJO</tspan></text>
 <text class="mono wide an-rise" style="animation-delay:60ms" x="832" y="44" font-size="10" text-anchor="end" fill="#b9b2a8">Se redibuja a diario</text>
-<text class="an-rise" style="animation-delay:80ms" x="48" y="68" font-size="12.5" fill="#b9b2a8"><tspan font-weight="600" fill="#ede6db">81</tspan> contribuciones · 18 días activos · pico 17 el 9 ago</text>
+<text class="an-rise" style="animation-delay:80ms" x="48" y="68" font-size="12.5" fill="#b9b2a8"><tspan font-weight="600" fill="#ede6db">159</tspan> contribuciones · 23 días activos · pico 41 el 20 nov</text>
 <rect class="an-pop" style="animation-delay:780ms" x="48" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:787ms" x="48" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:794ms" x="48" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
@@ -302,27 +302,27 @@ text{font-family:'Manrope',ui-sans-serif,system-ui,sans-serif;fill:#ede6db}
 <rect class="an-pop" style="animation-delay:1312ms" x="552" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1319ms" x="552" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1326ms" x="552" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1298ms" x="566" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1305ms" x="566" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1312ms" x="566" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1319ms" x="566" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1298ms" x="566" y="80" width="11" height="11" rx="2.5" fill="#ed6a5b"/>
+<rect class="an-pop" style="animation-delay:1305ms" x="566" y="94" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1312ms" x="566" y="108" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1319ms" x="566" y="122" width="11" height="11" rx="2.5" fill="#b3574c"/>
 <rect class="an-pop" style="animation-delay:1326ms" x="566" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1333ms" x="566" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1340ms" x="566" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1312ms" x="580" y="80" width="11" height="11" rx="2.5" fill="#ed6a5b" stroke="#ed6a5b" stroke-width="1.2"/>
-<rect class="an-pop" style="animation-delay:1319ms" x="580" y="94" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
-<rect class="an-pop" style="animation-delay:1326ms" x="580" y="108" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
-<rect class="an-pop" style="animation-delay:1333ms" x="580" y="122" width="11" height="11" rx="2.5" fill="#b3574c"/>
+<rect class="an-pop" style="animation-delay:1340ms" x="566" y="164" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1312ms" x="580" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1319ms" x="580" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1326ms" x="580" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1333ms" x="580" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1340ms" x="580" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1347ms" x="580" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1354ms" x="580" y="164" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1347ms" x="580" y="150" width="11" height="11" rx="2.5" fill="#7a3f38"/>
+<rect class="an-pop" style="animation-delay:1354ms" x="580" y="164" width="11" height="11" rx="2.5" fill="#7a3f38"/>
 <rect class="an-pop" style="animation-delay:1326ms" x="594" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1333ms" x="594" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1340ms" x="594" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1347ms" x="594" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1354ms" x="594" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1361ms" x="594" y="150" width="11" height="11" rx="2.5" fill="#7a3f38"/>
-<rect class="an-pop" style="animation-delay:1368ms" x="594" y="164" width="11" height="11" rx="2.5" fill="#7a3f38"/>
+<rect class="an-pop" style="animation-delay:1361ms" x="594" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1368ms" x="594" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1340ms" x="608" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1347ms" x="608" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1354ms" x="608" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
@@ -340,49 +340,49 @@ text{font-family:'Manrope',ui-sans-serif,system-ui,sans-serif;fill:#ede6db}
 <rect class="an-pop" style="animation-delay:1368ms" x="636" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1375ms" x="636" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1382ms" x="636" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1389ms" x="636" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1396ms" x="636" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1389ms" x="636" y="122" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1396ms" x="636" y="136" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
 <rect class="an-pop" style="animation-delay:1403ms" x="636" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1410ms" x="636" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1410ms" x="636" y="164" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
 <rect class="an-pop" style="animation-delay:1382ms" x="650" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1389ms" x="650" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1396ms" x="650" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1403ms" x="650" y="122" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
-<rect class="an-pop" style="animation-delay:1410ms" x="650" y="136" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1403ms" x="650" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1410ms" x="650" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1417ms" x="650" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1424ms" x="650" y="164" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
-<rect class="an-pop" style="animation-delay:1396ms" x="664" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1424ms" x="650" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1396ms" x="664" y="80" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
 <rect class="an-pop" style="animation-delay:1403ms" x="664" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1410ms" x="664" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1417ms" x="664" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1417ms" x="664" y="122" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
 <rect class="an-pop" style="animation-delay:1424ms" x="664" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1431ms" x="664" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1438ms" x="664" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1410ms" x="678" y="80" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1438ms" x="664" y="164" width="11" height="11" rx="2.5" fill="#7a3f38"/>
+<rect class="an-pop" style="animation-delay:1410ms" x="678" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1417ms" x="678" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1424ms" x="678" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1431ms" x="678" y="122" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1431ms" x="678" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1438ms" x="678" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1445ms" x="678" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1452ms" x="678" y="164" width="11" height="11" rx="2.5" fill="#7a3f38"/>
+<rect class="an-pop" style="animation-delay:1452ms" x="678" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1424ms" x="692" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1431ms" x="692" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1438ms" x="692" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1445ms" x="692" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1452ms" x="692" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1459ms" x="692" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1466ms" x="692" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1438ms" x="706" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1459ms" x="692" y="150" width="11" height="11" rx="2.5" fill="#ed6a5b"/>
+<rect class="an-pop" style="animation-delay:1466ms" x="692" y="164" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1438ms" x="706" y="80" width="11" height="11" rx="2.5" fill="#7a3f38"/>
 <rect class="an-pop" style="animation-delay:1445ms" x="706" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1452ms" x="706" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1459ms" x="706" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1452ms" x="706" y="108" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
+<rect class="an-pop" style="animation-delay:1459ms" x="706" y="122" width="11" height="11" rx="2.5" fill="#ed6a5b"/>
 <rect class="an-pop" style="animation-delay:1466ms" x="706" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1473ms" x="706" y="150" width="11" height="11" rx="2.5" fill="#ed6a5b"/>
-<rect class="an-pop" style="animation-delay:1480ms" x="706" y="164" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
-<rect class="an-pop" style="animation-delay:1452ms" x="720" y="80" width="11" height="11" rx="2.5" fill="#7a3f38"/>
+<rect class="an-pop" style="animation-delay:1473ms" x="706" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1480ms" x="706" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1452ms" x="720" y="80" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1459ms" x="720" y="94" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1466ms" x="720" y="108" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
-<rect class="an-pop" style="animation-delay:1473ms" x="720" y="122" width="11" height="11" rx="2.5" fill="#ed6a5b"/>
+<rect class="an-pop" style="animation-delay:1466ms" x="720" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1473ms" x="720" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1480ms" x="720" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1487ms" x="720" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1494ms" x="720" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
@@ -405,15 +405,13 @@ text{font-family:'Manrope',ui-sans-serif,system-ui,sans-serif;fill:#ede6db}
 <rect class="an-pop" style="animation-delay:1508ms" x="762" y="108" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1515ms" x="762" y="122" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1522ms" x="762" y="136" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1529ms" x="762" y="150" width="11" height="11" rx="2.5" fill="#33312d"/>
-<rect class="an-pop" style="animation-delay:1536ms" x="762" y="164" width="11" height="11" rx="2.5" fill="#33312d"/>
+<rect class="an-pop" style="animation-delay:1529ms" x="762" y="150" width="11" height="11" rx="2.5" fill="#ed6a5b" stroke="#ed6a5b" stroke-width="1.2"/>
+<rect class="an-pop" style="animation-delay:1536ms" x="762" y="164" width="11" height="11" rx="2.5" fill="#b3574c"/>
 <rect class="an-pop" style="animation-delay:1508ms" x="776" y="80" width="11" height="11" rx="2.5" fill="none" stroke="#383733" stroke-width="1"/>
 <rect class="an-pop" style="animation-delay:1515ms" x="776" y="94" width="11" height="11" rx="2.5" fill="none" stroke="#383733" stroke-width="1"/>
 <rect class="an-pop" style="animation-delay:1522ms" x="776" y="108" width="11" height="11" rx="2.5" fill="none" stroke="#383733" stroke-width="1"/>
 <rect class="an-pop" style="animation-delay:1529ms" x="776" y="122" width="11" height="11" rx="2.5" fill="none" stroke="#383733" stroke-width="1"/>
 <rect class="an-pop" style="animation-delay:1536ms" x="776" y="136" width="11" height="11" rx="2.5" fill="none" stroke="#383733" stroke-width="1"/>
-<rect class="an-pop" style="animation-delay:1543ms" x="776" y="150" width="11" height="11" rx="2.5" fill="none" stroke="#383733" stroke-width="1"/>
-<rect class="an-pop" style="animation-delay:1550ms" x="776" y="164" width="11" height="11" rx="2.5" fill="none" stroke="#383733" stroke-width="1"/>
 <text class="an-rise mu" style="animation-delay:1380ms" x="48" y="198" font-size="10.5" fill="#b9b2a8">Menos</text>
 <rect class="an-pop" style="animation-delay:1420ms" x="88" y="188" width="11" height="11" rx="2.5" fill="#33312d"/>
 <rect class="an-pop" style="animation-delay:1460ms" x="104" y="188" width="11" height="11" rx="2.5" fill="#4a2f2b"/>
