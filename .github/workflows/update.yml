@@ -1,0 +1,44 @@
+name: refresh-cards
+
+# Daily: refresh data/contributions.json, redraw cards/*.svg, commit both.
+on:
+  schedule:
+    - cron: "0 6 * * *" # 06:00 UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install font tooling (subset rebuilds)
+        run: python -m pip install fonttools
+
+      - name: Refresh contribution data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_USER: eduardomendozavillar
+        run: python scripts/fetch_contributions.py
+
+      - name: Render README cards
+        run: python scripts/render_cards.py
+
+      - name: Commit refreshed cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/contributions.json cards
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: refresh contribution cards [skip ci]"
+            git push
+          fi
